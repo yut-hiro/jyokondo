@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>OGホームページ</title>
+    
+    <!-- ここに文字サイズなどのデザイン（CSS）を書きます -->
+    <style>
+        /* ページ全体の基本の文字サイズ */
+        body {
+            font-size: 16px;
+        }
+
+        /* <h1>タグ（一番大きな見出し）のサイズ */
+        h1 {
+            font-size: 36px;
+            color: #333; /* ついでに文字色を濃いグレーに */
+        }
+
+        /* <h2>タグ（中見出し）のサイズ */
+        h2 {
+            font-size: 24px;
+        }
+
+        /* クラス名「large-text」をつけた場所だけ大きくする */
+        .large-text {
+            font-size: 20px;
+            font-weight: bold; /* 太字 */
+        }
+        /* 画像がブルブル震えるアニメーション */
+img:hover {
+    animation: shake 0.5s infinite;
+}
+
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    30% { transform: translate(-3px, 0px) rotate(1deg); }
+    50% { transform: translate(1px, 2px) rotate(-1deg); }
+    70% { transform: translate(-1px, 1px) rotate(1deg); }
+    90% { transform: translate(2px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+    </style>
+</head>
+<body>
+    <h1>頭おかしいんか</h1>
+    <h2>頭おかしいんかとは<br>何か</h2>
+    
+    <!-- クラス（class）を指定して部分的に大きくする -->
+    <p class="large-text">頭おかしいんかとはOGと言う男が発した名言である</p>
+    
+    <img src="og1.jpg" alt="OGの画像1" style=width:200px;>
+    <img src="og2.jpg" alt="OGの画像2" style=width:50%;>
+    
+    <p style="font-size: 75px;">
+       <a href="https://en.wikipedia.org/wiki/Lucius_Caecilius_Iucundus">ルキウス・カエキリウス・イウクンドゥスの詳細（Wikipedia）</a>
+    </p>
+    <!-- クリックすると動くボタン -->
+<button onclick="sayOG()" style="padding: 10px 20px; font-size: 18px; cursor: pointer; background-color: red; color: white; border: none; border-radius: 5px;">
+    OGを呼び出す
+</button>
+
+<!-- ボタンを動かすためのスクリプト（JavaScript） -->
+<script>
+function sayOG() {
+    alert("「頭おかしいんか！！」");
+}
+</script>
+<!-- 追いかけてくる文字の入れ物 -->
+<div id="follow-text" style="position: absolute; pointer-events: none; color: red; font-weight: bold; font-size: 20px; z-index: 9999;">
+    頭おかしいんか
+</div>
+
+<script>
+const text = document.getElementById('follow-text');
+document.addEventListener('mousemove', (e) => {
+    // マウスの座標に合わせて文字の位置を少しずらして動かす
+    text.style.left = (e.pageX + 15) + 'px';
+    text.style.top = (e.pageY + 15) + 'px';
+});
+</script>
+<button onclick="startMeteor()" style="padding: 10px 20px; font-size: 16px; background-color: purple; color: white; border: none; border-radius: 5px; cursor: pointer; display: block; margin: 10px auto;">
+    ☄️ 謎の流星群を降らせる
+</button>
+
+<script>
+function startMeteor() {
+    // 0.1秒ごとに「頭おかしいんか」という文字を上から降らせる
+    setInterval(() => {
+        const meteor = document.createElement('div');
+        meteor.innerText = "頭おかしいんか";
+        meteor.style.position = 'fixed';
+        meteor.style.top = '-50px';
+        // 画面のランダムな横位置から落とす
+        meteor.style.left = Math.random() * window.innerWidth + 'px';
+        meteor.style.color = `hsl(${Math.random() * 360}, 100%, 50%)`; // ランダムなド派手カラー
+        meteor.style.fontSize = Math.random() * 30 + 15 + 'px';
+        meteor.style.fontWeight = 'bold';
+        meteor.style.pointerEvents = 'none';
+        meteor.style.zIndex = '10000';
+        meteor.style.transition = 'transform 3s linear';
+        
+        document.body.appendChild(meteor);
+        
+        // ほんの少し遅らせて、下まで一気に落とすアニメーションを実行
+        setTimeout(() => {
+            meteor.style.transform = `translateY(${window.innerHeight + 100}px) rotate(${Math.random() * 360}deg)`;
+        }, 100);
+        
+        // 画面外に消えたら要素を消して重くならないようにする
+        setTimeout(() => {
+            meteor.remove();
+        }, 3100);
+    }, 10); // 100ミリ秒ごとに1個生成（やばいスピード）
+}
+</script>
+<button onclick="strobe()" style="padding: 10px 20px; font-size: 16px; background-color: black; color: lime; border: 2px solid lime; cursor: pointer; display: block; margin: 10px auto;">
+    ☣️ 時空を歪める
+</button>
+
+<script>
+let isStrobing = false;
+function strobe() {
+    if (isStrobing) return;
+    isStrobing = true;
+    
+    let count = 0;
+    const interval = setInterval(() => {
+        // 画面全体の色を反転（インバート）させる
+        document.documentElement.style.filter = count % 2 === 0 ? 'invert(100%)' : 'none';
+        count++;
+        
+        // 30回（約3秒）チカチカしたら止まる
+        if (count > 30) {
+            clearInterval(interval);
+            document.documentElement.style.filter = 'none';
+            isStrobing = false;
+        }
+    }, 100); // 0.1秒おきに反転
+}
+</script>
+<!-- 破滅を招くボタン -->
+<button onclick="apocalypse()" style="padding: 15px 30px; font-size: 20px; font-weight: bold; background: linear-gradient(red, darkred); color: white; border: 3px double yellow; border-radius: 10px; cursor: pointer; box-shadow: 0 0 15px red; display: block; margin: 20px auto;">
+    ⚠️ 絶対に押してはいけないボタン
+</button>
+
+<script>
+function apocalypse() {
+    // 1. まず画面全体を激しくシェイクする（大地震）
+    document.body.style.animation = "earthquake 0.1s infinite";
+    
+    // 地震の振動アニメーションをCSSで追加
+    const style = document.createElement('style');
+    style.innerHTML = `
+        @keyframes earthquake {
+            0% { transform: translate(5px, 5px) rotate(1deg); }
+            50% { transform: translate(-5px, -5px) rotate(-1deg); }
+            100% { transform: translate(5px, -5px) rotate(1deg); }
+        }
+    `;
+    document.head.appendChild(style);
+
+    // 2. 1.5秒後に重力を発生させ、すべての要素をバラバラに落とす（天変地異）
+    setTimeout(() => {
+        // 揺れを止める
+        document.body.style.animation = "none";
+        
+        // 画面内のすべての文字や画像（要素）を取得
+        const elements = document.querySelectorAll('h1, h2, p, img, button, a');
+        
+        elements.forEach((el, index) => {
+            el.style.transition = 'transform 2s ease-in, opacity 2s';
+            
+            // ランダムな方向に回転しながら下に落ちていく
+            const randomX = (Math.random() - 0.5) * 500; // 左右に散らばる
+            const randomRotate = (Math.random() - 0.5) * 720; // グルグル回転
+            
+            el.style.transform = `translate(${randomX}px, 1000px) rotate(${randomRotate}deg)`;
+            el.style.opacity = '0'; // 徐々に消える
+        });
+        
+        // 最後に「頭おかしいんか」という絶望のメッセージだけが浮かび上がる
+        setTimeout(() => {
+            document.body.innerHTML = `
+                <div style="display: flex; justify-content: center; align-items: center; height: 100vh; background: black; color: red; font-size: 50px; font-weight: bold; text-shadow: 0 0 20px red;">
+                    人類滅亡（頭おかしいんか）
+                </div>
+            `;
+            document.body.style.background = "black";
+        }, 2000);
+    }, 1500);
+}
+</script>
+<!-- 物理エンジンを起動する、禍々しいボタン -->
+<div style="text-align: center; margin: 30px 0;">
+    <button onclick="activateGravity()" style="padding: 20px 40px; font-size: 26px; font-weight: bold; color: gold; background: black; border: 5px solid gold; border-radius: 15px; cursor: pointer; box-shadow: 0 0 30px gold; text-shadow: 0 0 10px gold; font-family: 'Arial Black', sans-serif; transition: 0.2s;">
+        🏅 物理法則を狂わせる
+    </button>
+</div>
+
+<script>
+function activateGravity() {
+    alert("警告：このページに重力（物理演算）を適用します。");
+
+    // 画面内の物理崩壊させたい要素をすべて取得（ボタン自身は除外する）
+    const targets = document.querySelectorAll('h1, h2, p, img, a');
+    const elements = [];
+
+    // 物理演算用の初期パラメータを設定
+    targets.forEach((el) => {
+        // 現在の表示位置（画面上の絶対座標）を固定する
+        const rect = el.getBoundingClientRect();
+        
+        // 元のデザインを崩さないように、元の場所に absolute（絶対配置）で固定し直す
+        el.style.position = 'fixed';
+        el.style.left = rect.left + 'px';
+        el.style.top = rect.top + 'px';
+        el.style.width = rect.width + 'px';
+        el.style.margin = '0';
+        el.style.zIndex = '9999';
+
+        // 物理データオブジェクトを作成
+        elements.push({
+            dom: el,
+            x: rect.left,
+            y: rect.top,
+            w: rect.width,
+            h: rect.height,
+            vx: (Math.random() - 0.5) * 10,  // 横方向の初期速度（ランダムに散らす）
+            vy: (Math.random() - 5) * 5,     // 縦方向の初期速度（ちょっと上に弾んでから落ちる）
+            rotation: 0,
+            vRotation: (Math.random() - 0.5) * 10, // 回転速度
+            bounce: 0.5 + Math.random() * 0.3,    // 跳ね返り係数（各要素で弾み方が違う）
+            weight: 0.6 + Math.random() * 0.5     // 重さのばらつき
+        });
+    });
+
+    const gravity = 0.5; // 重力加速度
+    const friction = 0.98; // 空気抵抗
+
+    // 物理演算のループ処理（1秒間に約60回実行）
+    function updatePhysics() {
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
+
+        elements.forEach((el) => {
+            // 速度に重力を加える
+            el.vy += gravity * el.weight;
+            
+            // 空気抵抗を適用
+            el.vx *= friction;
+            el.vy *= friction;
+
+            // 位置を更新
+            el.x += el.vx;
+            el.y += el.vy;
+            el.rotation += el.vRotation;
+
+            // --- 地面との衝突判定 ---
+            if (el.y + el.h > screenHeight) {
+                el.y = screenHeight - el.h; // 地面にめり込まないようにする
+                el.vy = -el.vy * el.bounce; // 跳ね返る
+                el.vx *= 0.8; // 地面との摩擦で横移動を減速
+                el.vRotation *= 0.5; // 回転も減速
+            }
+
+            // --- 左右の壁との衝突判定 ---
+            if (el.x < 0) {
+                el.x = 0;
+                el.vx = -el.vx * el.bounce;
+            } else if (el.x + el.w > screenWidth) {
+                el.x = screenWidth - el.w;
+                el.vx = -el.vx * el.bounce;
+            }
+
+            // 実際のHTML要素（DOM）に座標と回転を反映する
+            el.dom.style.left = el.x + 'px';
+            el.dom.style.top = el.y + 'px';
+            el.dom.style.transform = `rotate(${el.rotation}deg)`;
+        });
+
+        // ループを継続
+        requestAnimationFrame(updatePhysics);
+    }
+
+    // 物理演算の開始！
+    updatePhysics();
+}
+</script>
+<button onclick="jumpScare()" style="padding: 15px 30px; font-size: 18px; font-weight: bold; background: yellow; color: black; border: 3px solid black; cursor: pointer; display: block; margin: 20px auto;">
+    🎁 [押すなよ？］絶対に押してはいけない動画ボタン
+</button>
+
+<div id="scareContainer" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: black; z-index: 99999; justify-content: center; align-items: center;">
+    <!-- YouTubeの埋め込み動画（音量を最大にしてフルスクリーン風にするための設定） -->
+    <iframe id="scareVideo" width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&controls=0&mute=0&enablejsapi=1" frameborder="0" allow="autoplay; encrypted-media"></iframe>
+</div>
+
+<script>
+function jumpScare() {
+    const container = document.getElementById('scareContainer');
+    // 画面全体に広げる
+    container.style.display = 'flex';
+    
+    // ブラウザのセキュリティ制限対策として、クリック動作の直後に再生命令を送る
+    const iframe = document.getElementById('scareVideo');
+    iframe.src += "&autoplay=1";
+    
+    // 閉じるボタンをあえて作らないことで、ブラウザをリロードするまで動画が終わりません
+}
+</script>
+<div style="text-align: center; margin: 20px auto; max-width: 90%;">
+    <!-- 動画エリア：スマホでも全画面化を防ぐ設定 -->
+    <video id="phoneVideo" width="100%" style="border-radius: 12px; border: 2px solid #ccc; display: block; margin-bottom: 15px;"
+           playsinline webkit-playsinline>
+        <!-- 自分で用意した動画ファイルをここに指定 -->
+        <source src=“tona.mp4" type="video/mp4">
+        お使いのブラウザは動画に対応していません。
+    </video>
+
+    <!-- スマホでタップしやすい大きめのボタン -->
+    <button onclick="playPhoneVideo()" style="padding: 15px 30px; font-size: 18px; font-weight: bold; background-color: #007AFF; color: white; border: none; border-radius: 30px; cursor: pointer; box-shadow: 0 4px 15px rgba(0,122,255,0.4); width: 100%; max-width: 250px;">
+        ▶ 再生する
+    </button>
+</div>
+
+<script>
+function playPhoneVideo() {
+    const video = document.getElementById('phoneVideo');
+    
+    // スマホでは「ユーザー自身がタップした瞬間」に命令を送ることで
+    // 音を出したままの再生（ミュート解除）が許可されます。
+    video.muted = false; 
+    video.play();
+}
+</script>
+<!-- 
+  BGMを再生するためのaudioタグ
+  - id="myBgm"：JavaScriptから動かすための名前
+  - loop：音楽が終わったら自動で最初からループ再生させる
+-->
+<audio id="myBgm" loop>
+    <!-- 自分で保存した音楽ファイル名（例：bgm.mp3）に書き換えてください -->
+    <source src="BGM.mp3" type="audio/mp3">
+    お使いのブラウザは音声再生に対応していません。
+</audio>
+
+<script>
+const bgm = document.getElementById('myBgm');
+
+// スマホ・PC共通：ユーザーが画面のどこかを「1回でも触った瞬間」に再生を開始する
+function startBgm() {
+    // すでに再生されている場合は何もしない
+    if (!bgm.paused) return;
+
+    // 音声を再生する
+    bgm.play()
+    .then(() => {
+        console.log("BGMの再生が始まりました！");
+        // 1回再生されたら、これ以上タップしても余計な処理が動かないようにイベントを削除する
+        document.removeEventListener('click', startBgm);
+        document.removeEventListener('touchstart', startBgm);
+    })
+    .catch((error) => {
+        console.log("再生ブロックに引っかかりました：", error);
+    });
+}
+
+// 画面のどこをクリック（またはスマホでタップ）しても再生が始まるようにセット
+document.addEventListener('click', startBgm);
+document.addEventListener('touchstart', startBgm); // スマホ用
+</script>
+
+
+
+
+
+
+</body>
+</html>
+
+
